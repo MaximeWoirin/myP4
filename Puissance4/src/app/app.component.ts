@@ -7,4 +7,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Puissance4';
+  isAuth = false;
+
+  constructor() {
+    setTimeout(
+      () => {
+        this.isAuth = true;
+      }, 4000
+    )
+  }
+  turnMachines() {
+    alert("tout est allumé")
+  }
+
 }
