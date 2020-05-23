@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store, Select } from '@ngxs/store';
+import { InitGameGrid } from '../Services/game.services';
+import { GridState, GridStateModel } from '../States/grid.state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-grid',
@@ -7,16 +11,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GridComponent implements OnInit {
 
-  grid: Array<number>;
+  grid: Array<Number> = Array<Number>();
+  @Select(GridState) state$: Observable<any>;
 
-  constructor() {
-    this.grid = new Array<number>();
-    for (let i = 0; i < 42; i++) {
-      this.grid.push(0);
-    }
+  constructor(private store: Store) {
+    this.store.dispatch(new InitGameGrid());
   }
 
   ngOnInit(): void {
+    this.state$.subscribe((data: GridStateModel) => this.grid = data.gridContent);
   }
 
 }

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngxs/store';
+import { AddCoin} from './Services/game.services';
 
 @Component({
   selector: 'app-root',
@@ -6,22 +8,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
   title = 'Puissance4';
-  isAuth = false;
 
-  onClick(id: number) {
-    alert(id);
+  onClick(colIndex: number) {
+    this.store.dispatch(new AddCoin(colIndex));
   }
 
-  constructor() {
-    setTimeout(
-      () => {
-        this.isAuth = true;
-      }, 4000
-    )
+  constructor(private store: Store) {
   }
-  turnMachines() {
-    alert("tout est allumé")
-  }
-
 }

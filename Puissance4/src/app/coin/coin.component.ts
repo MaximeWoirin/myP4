@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-coin',
@@ -7,16 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CoinComponent implements OnInit {
 
-  player: number;
+  @Input() player: number = 0;
 
   constructor() {
-    this.player = 0;
-  }
-
-  setPlayer(player: number) {
-    if (player > 0 || player < 3) {
-      this.player = player
-    }
   }
 
   ngOnInit(): void {

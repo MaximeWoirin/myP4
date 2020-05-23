@@ -1,7 +1,7 @@
 <mat-grid-list cols="7">
-  <mat-grid-tile *ngFor="let tile of grid">
+  <mat-grid-tile *ngFor="let gridTile of grid">
     <div class="tile">
-      <app-coin></app-coin>
+      <app-coin [player]="gridTile"></app-coin>
     </div>
   </mat-grid-tile>
 </mat-grid-list>

@@ -8,6 +8,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatButtonModule } from '@angular/material/button'
 import { GridComponent } from './grid/grid.component';
 import { CoinComponent } from './coin/coin.component'
+import { NgxsModule } from '@ngxs/store';
+import { GridState } from './States/grid.state';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { CoinComponent } from './coin/coin.component'
     FormsModule,
     BrowserAnimationsModule,
     MatGridListModule,
-    MatButtonModule
+    MatButtonModule,
+    NgxsModule.forRoot([GridState], {
+      developmentMode: !environment.production
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
