@@ -1,0 +1,25 @@
+.coin-container{
+    height: 100%; 
+    width: 100%; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+.dot {
+    height: 85%;
+    width: 85%;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.empty{
+    background-color: white;
+}
+
+.player1{
+    background-color: red;
+}
+
+.player2{
+    background-color: yellow;
+}
