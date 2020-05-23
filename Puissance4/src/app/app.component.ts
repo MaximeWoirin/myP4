@@ -9,6 +9,10 @@ export class AppComponent {
   title = 'Puissance4';
   isAuth = false;
 
+  onClick(id: number) {
+    alert(id);
+  }
+
   constructor() {
     setTimeout(
       () => {
