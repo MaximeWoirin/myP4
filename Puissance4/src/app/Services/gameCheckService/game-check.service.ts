@@ -36,7 +36,6 @@ export class GameCheckService {
   verticalWin(lastCoinIndex: number): boolean {
     // There may only be win combinaison above last coin placed
     if (Math.floor(lastCoinIndex / GRID_WIDTH) < 3) {
-      console.log(lastCoinIndex);
       // If the last coin Placed is in a lower row than 3 there can't be connect 4
       if (this.grid[lastCoinIndex] === this.grid[lastCoinIndex + GRID_WIDTH] &&
         this.grid[lastCoinIndex] === this.grid[lastCoinIndex + (2 * GRID_WIDTH)] &&
@@ -48,8 +47,10 @@ export class GameCheckService {
 
   horizontalWin(lastCoinIndex: number): boolean {
     const rowOffset: number = Math.floor(lastCoinIndex / GRID_WIDTH) * GRID_WIDTH;
+
     let minCol: number = (lastCoinIndex - 3 < rowOffset) ? (rowOffset) : (lastCoinIndex - 3);
-    while (minCol <= lastCoinIndex) {
+    const maxCol: number = (lastCoinIndex + 3 > rowOffset + GRID_WIDTH - 1) ? (rowOffset + GRID_WIDTH - 1) : (lastCoinIndex + 3);
+    while (minCol <= lastCoinIndex && minCol + 3 <= maxCol) {
       if (this.grid[minCol] === this.grid[minCol + 1] &&
         this.grid[minCol] === this.grid[minCol + 2] &&
         this.grid[minCol] === this.grid[minCol + 3])
