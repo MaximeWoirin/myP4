@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { Play } from './Services/game.services';
+import { Play } from './States/game.state';
+import { GameCheckService } from './Services/gameCheckService/game-check.service'
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,10 @@ export class AppComponent {
     this.store.dispatch(new Play(colIndex));
   }
 
-  constructor(private store: Store) {
+  columnFull(colIndex: number): boolean {
+    return this.gameCheckService.columnFull(colIndex);
+  }
+
+  constructor(private store: Store, private gameCheckService: GameCheckService) {
   }
 }

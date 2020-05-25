@@ -1,26 +1,35 @@
 import { State, Action, StateContext } from '@ngxs/store';
-import { InitGameGrid, Play } from '../Services/game.services'
 import { Injectable } from '@angular/core';
 
 export const GRID_SIZE: number = 42;
 export const GRID_WIDTH: number = 7;
 
-export interface GridStateModel {
+export class InitGameGrid {
+    static readonly type = '[Game] InitCoinsInGrid'
+    constructor() { }
+}
+
+export class Play {
+    static readonly type = '[Game] PlayCoinInGrid'
+    constructor(public colIndex: Number) { }
+}
+
+export interface GameStateModel {
     gridContent: Array<Number>;
     player: Number,
 }
 
-@State<GridStateModel>({
+@State<GameStateModel>({
     name: 'grid',
     defaults: {
         gridContent: Array<Number>(),
-        player: Math.floor(Math.random() * 2),
+        player: 1,
     }
 })
 @Injectable()
-export class GridState {
+export class GameState {
     @Action(InitGameGrid)
-    initGameGrid(ctx: StateContext<GridStateModel>) {
+    initGameGrid(ctx: StateContext<GameStateModel>) {
         const state = ctx.getState();
         ctx.setState({
             ...state,
@@ -28,7 +37,7 @@ export class GridState {
         })
     }
     @Action(Play)
-    addCoin(ctx: StateContext<GridStateModel>, action: Play) {
+    addCoin(ctx: StateContext<GameStateModel>, action: Play) {
         const state = ctx.getState();
         let colIndex: number = action.colIndex as number;
         let grid: Array<Number> = Array<Number>();

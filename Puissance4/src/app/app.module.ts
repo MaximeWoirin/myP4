@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button'
 import { GridComponent } from './grid/grid.component';
 import { CoinComponent } from './coin/coin.component'
 import { NgxsModule } from '@ngxs/store';
-import { GridState } from './States/grid.state';
+import { GameState } from './States/game.state';
 import { environment } from 'src/environments/environment';
 import { InfoContainerComponent } from './info-container/info-container.component';
 
@@ -26,7 +26,7 @@ import { InfoContainerComponent } from './info-container/info-container.componen
     BrowserAnimationsModule,
     MatGridListModule,
     MatButtonModule,
-    NgxsModule.forRoot([GridState], {
+    NgxsModule.forRoot([GameState], {
       developmentMode: !environment.production
     })
   ],
