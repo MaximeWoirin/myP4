@@ -13,7 +13,7 @@ export class AppComponent {
   title = 'Puissance4';
 
   onClick(colIndex: number) {
-    this.store.dispatch(new Play(colIndex));
+    this.store.dispatch(new Play(colIndex, new GameCheckService()));
   }
 
   columnFull(colIndex: number): boolean {

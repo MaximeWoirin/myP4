@@ -1,8 +1,11 @@
 import { State, Action, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
+import { GameCheckService } from '../Services/gameCheckService/game-check.service'
 
-export const GRID_SIZE: number = 42;
+
 export const GRID_WIDTH: number = 7;
+export const GRID_HEIGHT: number = 6;
+export const GRID_SIZE: number = GRID_WIDTH * GRID_HEIGHT;
 
 export class InitGameGrid {
     static readonly type = '[Game] InitCoinsInGrid'
@@ -11,7 +14,7 @@ export class InitGameGrid {
 
 export class Play {
     static readonly type = '[Game] PlayCoinInGrid'
-    constructor(public colIndex: Number) { }
+    constructor(public colIndex: Number, public gameCheckService: GameCheckService) { }
 }
 
 export interface GameStateModel {
@@ -40,6 +43,7 @@ export class GameState {
     addCoin(ctx: StateContext<GameStateModel>, action: Play) {
         const state = ctx.getState();
         let colIndex: number = action.colIndex as number;
+        const gameCheckService: GameCheckService = action.gameCheckService;
         let grid: Array<Number> = Array<Number>();
         let placed = [false, -1];
         let player = state.player;
@@ -71,6 +75,6 @@ export class GameState {
             gridContent: grid,
             player: player,
         })
-        console.log(grid);
+        console.log(gameCheckService.win(placed[1] as number));
     }
 }
