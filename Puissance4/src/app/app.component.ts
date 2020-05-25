@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { AddCoin} from './Services/game.services';
+import { Play } from './Services/game.services';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,7 @@ export class AppComponent {
   title = 'Puissance4';
 
   onClick(colIndex: number) {
-    this.store.dispatch(new AddCoin(colIndex));
+    this.store.dispatch(new Play(colIndex));
   }
 
   constructor(private store: Store) {

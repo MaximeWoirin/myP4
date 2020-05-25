@@ -3,7 +3,7 @@ export class InitGameGrid {
     constructor() { }
 }
 
-export class AddCoin {
+export class Play {
     static readonly type = '[Game] PlayCoinInGrid'
     constructor(public colIndex: Number) { }
 }

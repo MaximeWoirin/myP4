@@ -11,12 +11,14 @@ import { CoinComponent } from './coin/coin.component'
 import { NgxsModule } from '@ngxs/store';
 import { GridState } from './States/grid.state';
 import { environment } from 'src/environments/environment';
+import { InfoContainerComponent } from './info-container/info-container.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GridComponent,
     CoinComponent,
+    InfoContainerComponent,
   ],
   imports: [
     BrowserModule,
