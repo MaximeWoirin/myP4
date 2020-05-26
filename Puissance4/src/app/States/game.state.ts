@@ -13,19 +13,21 @@ export class InitGameGrid {
 }
 
 export class Play {
-    static readonly type = '[Game] PlayCoinInGrid'
-    constructor(public colIndex: Number, public gameCheckService: GameCheckService) { }
+    static readonly type = '[Game] PerformActionForPlayerTurn'
+    constructor(public colIndex: number) { }
 }
 
 export interface GameStateModel {
-    gridContent: Array<Number>;
-    player: Number,
+    gridContent: Array<number>;
+    lastCoinPlaced: number;
+    player: number;
 }
 
 @State<GameStateModel>({
     name: 'grid',
     defaults: {
-        gridContent: Array<Number>(),
+        gridContent: Array<number>(),
+        lastCoinPlaced: -1,
         player: 1,
     }
 })
@@ -40,26 +42,25 @@ export class GameState {
         })
     }
     @Action(Play)
-    addCoin(ctx: StateContext<GameStateModel>, action: Play) {
+    play(ctx: StateContext<GameStateModel>, action: Play) {
         const state = ctx.getState();
-        let colIndex: number = action.colIndex as number;
-        const gameCheckService: GameCheckService = action.gameCheckService;
-        let grid: Array<Number> = Array<Number>();
+        let colIndex: number = action.colIndex;
+        let grid: Array<number> = Array<number>();
         let placed = [false, -1];
         let player = state.player;
-        state.gridContent.forEach((player: number, index: number) => {
+        state.gridContent.forEach((gridTile: number, index: number) => {
             // Le bas du tableau étant les cases aux indexes les plus hauts,
             // on ne soucie pas de savoir si un bon emplacement à été trouvé plus bas.
             // ainsi l'algo enregistre qu'il doit ajouter le jeton à la case vide troucée
             // la plus basse.
-            if (index % GRID_WIDTH === colIndex && player === 0) {
+            if (index % GRID_WIDTH === colIndex && gridTile === 0) {
                 placed[1] = index;
                 placed[0] = true;
             }
-            grid.push(player);
+            grid.push(gridTile);
         })
         if (placed[0]) {
-            console.log("coins placed in tile index : " + placed[1]);
+            console.log("coin placed in tile index : " + placed[1]);
             grid[placed[1] as number] = player;
             switch (player) {
                 case 1:
@@ -69,12 +70,12 @@ export class GameState {
                     player = 1;
                     break;
             }
+            ctx.setState({
+                ...state,
+                gridContent: grid,
+                player: player,
+                lastCoinPlaced: placed[1] as number,
+            })
         }
-        ctx.setState({
-            ...state,
-            gridContent: grid,
-            player: player,
-        })
-        console.log(gameCheckService.win(placed[1] as number));
     }
 }
